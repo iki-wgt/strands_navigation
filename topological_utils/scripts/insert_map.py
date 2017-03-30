@@ -19,7 +19,7 @@ class topological_node(object):
 
     def _insert_waypoint(self, swaypoint):
         self.waypoint=swaypoint.split(',')
-        
+
     def _insert_edges(self, edges):
         self.edges=edges
 
@@ -37,7 +37,7 @@ def get_edge_id(source, target, eids):
 
 def loadMap(inputfile, dataset_name, map_name) :
 
-    print "openning %s" %inputfile 
+    print "openning %s" %inputfile
     fin = open(inputfile, 'r')
     print "Done"
 
@@ -53,7 +53,7 @@ def loadMap(inputfile, dataset_name, map_name) :
             name = name.strip('\n')
             anode=topological_node(name, dataset_name, map_name)
 
-            #Saving WayPoint            
+            #Saving WayPoint
             line = fin.readline()
             if line.startswith('\t') :
                 if line.startswith('\twaypoint:') :
@@ -62,7 +62,7 @@ def loadMap(inputfile, dataset_name, map_name) :
                     ways = line.strip('\t')
                     ways = ways.strip('\n')
                     anode._insert_waypoint(ways)
-                    
+
             #Saving edges
             line = fin.readline()
             if line.startswith('\t') :
@@ -80,7 +80,7 @@ def loadMap(inputfile, dataset_name, map_name) :
                     anode._insert_edges(edges)
 
             #Saving vertices
-            #line = fin.readline()                    
+            #line = fin.readline()
             if line.startswith('\t') :
                 if line.startswith('\tvertices:') :
                     vertices=[]
@@ -96,7 +96,7 @@ def loadMap(inputfile, dataset_name, map_name) :
     fin.close()
     lnodes.pop(0)
 
-    return lnodes         
+    return lnodes
 
 
 if __name__ == '__main__':
@@ -116,7 +116,7 @@ if __name__ == '__main__':
     meta = {}
     meta["map"] = map_name
     meta["pointset"] = dataset_name
-        
+
     for i in lnodes:
         #val=i.__dict__#json.loads(vala)        print val #+ '\n'
         n = TopologicalNode()
@@ -145,10 +145,10 @@ if __name__ == '__main__':
             eid = get_edge_id(i.name, e.node, eids)
             eids.append(eid)
             e.edge_id = eid
-            e.top_vel =0.55
-            e.map_2d = map_name        
+            e.top_vel =0.3
+            e.map_2d = map_name
             n.edges.append(e)
-            
+
         print n
         msg_store.insert(n,meta)
         #mongodb_store.util.store_message(points_db,p,val)

@@ -127,7 +127,7 @@ class topological_map(object):
                 if edge.edge_id == edge_id:
                     edge.action = new_action or edge.action
                     edge.top_vel = new_top_vel or edge.top_vel
-                
+
             msg_store.update(available[0][0], query_meta, query, upsert=True)
         else:
             rospy.logerr("Impossible to store in DB "+str(len(available))+" waypoints found after query")
@@ -156,7 +156,7 @@ class topological_map(object):
             allnodes_query_meta["map"] = self.map
             # this produces a list of tuples, each with [0] as the node, [1] as database info
             allnodes_available = msg_store.query(TopologicalNode._type, {}, allnodes_query_meta)
-            
+
             # Check the edges of each node for a reference to the node to be
             # renamed, and change the edge id if there is one. Enumerate the
             # values so that we can edit the objects in place to send them back
@@ -204,7 +204,7 @@ class topological_map(object):
                 edge.edge_id = "{0}_{1}".format(or_waypoint, de_waypoint)
                 edge.node = de_waypoint
                 edge.action = action
-                edge.top_vel = 0.55
+                edge.top_vel = 0.3
                 edge.map_2d = available[0][0].map
                 available[0][0].edges.append(edge)
                 msg_store.update(available[0][0], query_meta, query, upsert=True)

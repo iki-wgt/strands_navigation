@@ -44,9 +44,9 @@ class map_manager(object):
         self.get_map_srv=rospy.Service('/topological_map_publisher/get_topological_map', strands_navigation_msgs.srv.GetTopologicalMap, self.get_topological_map_cb)
         #This service switches topological map
         self.switch_map_srv=rospy.Service('/topological_map_manager/switch_topological_map', strands_navigation_msgs.srv.GetTopologicalMap, self.switch_topological_map_cb)
-        #This service adds a node 
+        #This service adds a node
         self.add_node_srv=rospy.Service('/topological_map_manager/add_topological_node', strands_navigation_msgs.srv.AddNode, self.add_topological_node_cb)
-        #This service deletes a node 
+        #This service deletes a node
         self.remove_node_srv=rospy.Service('/topological_map_manager/remove_topological_node', strands_navigation_msgs.srv.RmvNode, self.remove_node_cb)
         #This service adds content to a node
         self.add_content_to_node_srv=rospy.Service('/topological_map_manager/add_content_to_node', strands_navigation_msgs.srv.AddContent, self.add_content_cb)
@@ -62,9 +62,9 @@ class map_manager(object):
         #This service adds a tag to the meta information of a list of nodes
         self.add_tag_srv=rospy.Service('/topological_map_manager/add_tag_to_node', strands_navigation_msgs.srv.AddTag, self.add_tag_cb)
         #This service removes a tag from the meta information of a list of nodes
-        self.rm_tag_srv=rospy.Service('/topological_map_manager/rm_tag_from_node', strands_navigation_msgs.srv.AddTag, self.rm_tag_cb)        
+        self.rm_tag_srv=rospy.Service('/topological_map_manager/rm_tag_from_node', strands_navigation_msgs.srv.AddTag, self.rm_tag_cb)
         #This service returns a list of nodes that have a given tag
-        self.get_tagged_srv=rospy.Service('/topological_map_manager/get_tagged_nodes', strands_navigation_msgs.srv.GetTaggedNodes, self.get_tagged_cb)       
+        self.get_tagged_srv=rospy.Service('/topological_map_manager/get_tagged_nodes', strands_navigation_msgs.srv.GetTaggedNodes, self.get_tagged_cb)
         #This service returns a list of edges_ids between two nodes
         self.get_node_edges_srv=rospy.Service('/topological_map_manager/get_edges_between_nodes', strands_navigation_msgs.srv.GetEdgesBetweenNodes, self.get_edges_between_cb)
         #adds edge between two nodes
@@ -349,7 +349,7 @@ class map_manager(object):
             edge = strands_navigation_msgs.msg.Edge()
             edge.node = de_waypoint
             edge.action = action
-            edge.top_vel = 0.55
+            edge.top_vel = 0.3
             edge.edge_id = eid
             edge.map_2d = available[0][0].map
 
@@ -419,7 +419,7 @@ class map_manager(object):
             e.action = 'move_base'
             eid = '%s_%s' %(node.name, i)
             e.edge_id = eid
-            e.top_vel =0.55
+            e.top_vel =0.3
             e.map_2d = node.map
             node.edges.append(e)
 
@@ -593,7 +593,7 @@ class map_manager(object):
             return True
         else :
             rospy.logerr("Impossible to store in DB "+str(len(available))+" waypoints found after query")
-            rospy.logerr("Available data: "+str(available)) 
+            rospy.logerr("Available data: "+str(available))
             return False
 
     def update_edge_cb(self, req):

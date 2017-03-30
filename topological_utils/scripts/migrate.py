@@ -47,7 +47,7 @@ def update_node(node, pointset):
 
 def update_edge(edge, nna, nma, eids):
     e = Edge()
-    e.top_vel =0.55
+    e.top_vel =0.3
     e.map_2d = nma
     lsl = e.__slots__
     for j in lsl:
@@ -72,13 +72,13 @@ def update_vert(vert):
 def update_meta(meta, pointset):
     cm=meta
     to_pop=['inserted_at','stored_type','stored_class','inserted_by']
-    
+
     lsl = meta.keys()
-    
+
     for j in lsl:
         if j in to_pop:
             cm.pop(j)
-    
+
     cm['pointset']=pointset
     return cm
 
@@ -106,7 +106,7 @@ def check_for_update(b, d, client):
         else:
 #            print "No differences at node level testing edges"
 #            print 'Edge comparison for pointset %s' %pointset
-    
+
             e = aa["edges"][0].keys()
             edef =len(list(set(d).difference(set(e))))
 #            print edef
@@ -132,7 +132,7 @@ def update_maps(to_update, client):
         for a in av:
             #print a
             bc = update_node(a, pointset)
-    
+
             nna = a['name']
             nma = a['map']
             vt = a['verts']
@@ -141,24 +141,24 @@ def update_maps(to_update, client):
                 for i in es:
                     ed, eids = update_edge(i, nna, nma, eids)
                     bc.edges.append(ed)
-                
+
             for i in vt:
                 v = update_vert(i)
                 bc.verts.append(v)
-            
+
             meta = update_meta(a['_meta'], pointset)
-            
+
             #print bc
             #print meta
             del_ids.append(a['_id'])
             #lnodes.append(bc)
             msg_store.insert(bc,meta)
         #print lnodes
-    
+
     print "Deleting updated nodes"
     for i in del_ids:
         msg_store.delete(str(i))
-    print "done"    
+    print "done"
 
 
 def check_sanity(client):
@@ -167,15 +167,15 @@ def check_sanity(client):
     collection=db["topological_maps"]
     available = collection.find().distinct("_meta.pointset")
     print available
-    
+
     for point_set in available:
         #get one message
         #search = {"_meta.pointset": pointset}
         query_meta = {}
         query_meta["pointset"] = point_set
-              
+
         message_list = msg_store.query(TopologicalNode._type, {}, query_meta)
-    
+
         #points = strands_navigation_msgs.msg.TopologicalMap()
         #points.name = point_set
         #points.map = point_set
@@ -196,13 +196,13 @@ def check_sanity(client):
                     if j.top_vel <= 0.1 :
                         update = True
                         print 'needs top vel'
-                        j.top_vel = 0.55
+                        j.top_vel = 0.3
                     if j.map_2d == '':
                         update = True
                         print 'needs map_2d'
                         j.map_2d = i[0].map
             if update:
-                msg_store.update_id(i[1]['_id'], i[0], i[1], upsert = False)                
+                msg_store.update_id(i[1]['_id'], i[0], i[1], upsert = False)
 
 def add_localise_by_topic(tmap, node, json_str):
     #print req
@@ -242,8 +242,8 @@ if __name__ == '__main__':
     to_pop=['_id','_meta']
 
     b = TopologicalNode().__slots__
-    d = Edge().__slots__    
-    
+    d = Edge().__slots__
+
     print '========= Current Topological NODE definition Slots ==========='
     print b
     print '========= Current Topological EDGE definition Slots ==========='
@@ -254,18 +254,16 @@ if __name__ == '__main__':
 
     print '========= The following maps need to be updated ==========='
     print to_update
-    
+
     update_maps(to_update, client)
 
-    check_sanity(client)    
+    check_sanity(client)
     #print available
-    
+
     db=client.message_store
     collection=db["topological_maps"]
     available = collection.find().distinct("_meta.pointset")
-    print available    
-    
+    print available
+
     for i in available:
         add_localise_by_topic(i, 'ChargingPoint', "{\"topic\":\"/battery_state\",\"field\":\"charging\", \"val\": true}")
-
-    

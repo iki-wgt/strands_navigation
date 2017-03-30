@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 #==============================================================================
-# This Script takes a waypoint file and creates a Yaml file with a topological 
+# This Script takes a waypoint file and creates a Yaml file with a topological
 # map definition
 #
 # Usage:
@@ -62,13 +62,13 @@ def get_edge_id(source, target, eids):
 def get_empty_edge(mapname,standard_action):
     e = Edge()
     e.action = standard_action
-    e.top_vel =0.55
+    e.top_vel =0.3
     e.map_2d = mapname
     e.use_default_recovery = True
     e.use_default_nav_recovery = True
     e.use_default_helpers = True
     return e
-    
+
 def create_node(name, mapname, pointset, line, vertices):
     o=[]
     n = TopologicalNode()
@@ -84,14 +84,14 @@ def create_node(name, mapname, pointset, line, vertices):
     m["pointset"] = pointset
     m["node"] = n.name
     o.append(n)
-    o.append(m)    
+    o.append(m)
     return o
 
 if __name__ == '__main__':
     if len(sys.argv) < 5 :
         print "usage:  waypoints_to_yaml_tmap.py input_file output_file pointset map [max_dist_connect]"
         sys.exit(2)
-        
+
     filename=str(sys.argv[1])
     outfile=str(sys.argv[2])
     pointset=str(sys.argv[3])
@@ -102,13 +102,13 @@ if __name__ == '__main__':
         max_dist_connect=float(sys.argv[5])
     else:
         max_dist_connect=100
-    
+
     standard_action = 'move_base'
-    eids=[] #list of known edge id's    
+    eids=[] #list of known edge id's
 
 
     lnodes=[]
-    
+
 
     fin = open(filename, 'r')
     line = fin.readline()
