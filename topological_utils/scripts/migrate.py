@@ -28,7 +28,7 @@ def update_node(node, pointset):
     n = TopologicalNode()
 
     n.yaw_goal_tolerance = 0.1
-    n.xy_goal_tolerance = 0.3
+    n.xy_goal_tolerance = 0.1
 
     lsl = n.__slots__
     for j in lsl:

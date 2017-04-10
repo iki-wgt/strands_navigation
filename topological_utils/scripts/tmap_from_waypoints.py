@@ -90,7 +90,7 @@ if __name__ == '__main__':
     cnode._insert_vertices(cvertices)
 
     for i in lnodes :
-        vertices=[(0.69, 0.287), (0.287, 0.69), (-0.287, 0.69), (-0.69, 0.287), (-0.69, -0.287), (-0.287, -0.69), (0.287, -0.69), (0.69, -0.287)]
+        vertices=[(0.25, 0.25), (-0.25, 0.25), (-0.25, -0.25), (0.25, -0.25)]
         i._insert_vertices(vertices)
 
     lnodes.insert(0,cnode)

@@ -276,7 +276,7 @@ class topological_map(object):
             node.map = self.map
             node.pointset = self.name
             node.pose = pos
-            vertices=[(0.69, 0.287), (0.287, 0.69), (-0.287, 0.69), (-0.69, 0.287), (-0.69, -0.287), (-0.287, -0.69), (0.287, -0.69), (0.69, -0.287)]
+            vertices=[(0.25, 0.25), (-0.25, 0.25), (-0.25, -0.25), (0.25, -0.25)]
             for j in vertices:
                 v = Vertex()
                 v.x = float(j[0])

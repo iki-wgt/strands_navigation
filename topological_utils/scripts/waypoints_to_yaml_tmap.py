@@ -77,7 +77,7 @@ def create_node(name, mapname, pointset, line, vertices):
     n.pointset = pointset
     n.pose = pose_from_waypoint(line)
     n.yaw_goal_tolerance = 0.1
-    n.xy_goal_tolerance = 0.3
+    n.xy_goal_tolerance = 0.1
     n.verts = get_vertex_list(vertices)
     m = {}
     m["map"] = mapname
@@ -96,7 +96,7 @@ if __name__ == '__main__':
     outfile=str(sys.argv[2])
     pointset=str(sys.argv[3])
     mapname=str(sys.argv[4])
-    vertices=[(0.69, 0.287), (0.287, 0.69), (-0.287, 0.69), (-0.69, 0.287), (-0.69, -0.287), (-0.287, -0.69), (0.287, -0.69), (0.69, -0.287)]
+    vertices=[(0.25, 0.25), (-0.25, 0.25), (-0.25, -0.25), (0.25, -0.25)]
 
     if len(sys.argv) == 6:
         max_dist_connect=float(sys.argv[5])

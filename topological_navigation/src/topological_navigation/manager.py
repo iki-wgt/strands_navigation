@@ -397,9 +397,9 @@ class map_manager(object):
         node.pointset = self.name
         node.pose = node_pose
         node.yaw_goal_tolerance = 0.1
-        node.xy_goal_tolerance = 0.3
+        node.xy_goal_tolerance = 0.1
         node.localise_by_topic = ''
-        vertices=[(0.69, 0.287), (0.287, 0.69), (-0.287, 0.69), (-0.69, 0.287), (-0.69, -0.287), (-0.287, -0.69), (0.287, -0.69), (0.69, -0.287)]
+        vertices=[(0.25, 0.25), (-0.25, 0.25), (-0.25, -0.25), (0.25, -0.25)]
         for j in vertices :
             v = strands_navigation_msgs.msg.Vertex()
             v.x = float(j[0])
